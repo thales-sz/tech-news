@@ -1,6 +1,7 @@
 from parsel import Selector
 import requests
 import time
+
 headers = {"user-agent": "Fake user-agent"}
 base_url = "https://blog.betrybe.com"
 
@@ -33,7 +34,36 @@ def scrape_next_page_link(html_content):
 
 # Requisito 4
 def scrape_news(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(text=html_content)
+    url = (
+        selector.css("div.pk-share-buttons-wrap")
+        .xpath("@data-share-url")
+        .get()
+    )
+    writer = selector.css("a.url.fn.n::text").get()
+    title = (
+        selector.css("h1.entry-title::text").get().replace("\xa0", " ").strip()
+    )
+    category = selector.css("span.label::text").get()
+    timestamp = selector.css("li.meta-date::text").get()
+    reading_time = int(
+        selector.css("li.meta-reading-time::text").get().split(" ")[0]
+    )
+    summary = (
+        "".join(selector.xpath("//div[1]/p[1]//text()").getall())
+        .replace("\xa0", " ")
+        .strip()
+    )
+
+    return {
+        "url": url,
+        "writer": writer,
+        "title": title,
+        "category": category,
+        "reading_time": reading_time,
+        "timestamp": timestamp,
+        "summary": summary,
+    }
 
 
 # Requisito 5
