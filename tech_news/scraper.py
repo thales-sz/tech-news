@@ -1,3 +1,4 @@
+from parsel import Selector
 import requests
 import time
 headers = {"user-agent": "Fake user-agent"}
@@ -12,13 +13,15 @@ def fetch(url):
         if response.status_code == 200:
             return response.text
         return None
-    except (requests.ReadTimeout):
+    except requests.ReadTimeout:
         return None
 
 
 # Requisito 2
 def scrape_updates(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(text=html_content)
+    links = selector.css(".cs-overlay a::attr('href')").getall()
+    print(links)
 
 
 # Requisito 3
