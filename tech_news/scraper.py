@@ -1,6 +1,11 @@
+import requests
+headers = {"user-agent": "Fake user-agent"}
+
+
 # Requisito 1
 def fetch(url):
-    """Seu código deve vir aqui"""
+    response = requests.get(url=url, headers=headers, timeout=3)
+    print(response.status)
 
 
 # Requisito 2
