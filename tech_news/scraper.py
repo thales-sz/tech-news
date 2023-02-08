@@ -1,14 +1,19 @@
 import requests
+import time
 headers = {"user-agent": "Fake user-agent"}
+base_url = "https://blog.betrybe.com"
 
 
 # Requisito 1
 def fetch(url):
     try:
         response = requests.get(url=url, headers=headers, timeout=3)
-        print(response.status)
-    except requests.ReadTimeout:
-        pass
+        time.sleep(1)
+        if response.status_code == 200:
+            return response.text
+        return None
+    except (requests.ReadTimeout):
+        return None
 
 
 # Requisito 2
