@@ -4,8 +4,11 @@ headers = {"user-agent": "Fake user-agent"}
 
 # Requisito 1
 def fetch(url):
-    response = requests.get(url=url, headers=headers, timeout=3)
-    print(response.status)
+    try:
+        response = requests.get(url=url, headers=headers, timeout=3)
+        print(response.status)
+    except requests.ReadTimeout:
+        pass
 
 
 # Requisito 2
