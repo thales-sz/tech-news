@@ -1,4 +1,5 @@
 from parsel import Selector
+from tech_news.database import create_news
 import requests
 import time
 
@@ -55,17 +56,22 @@ def scrape_news(html_content):
         .strip()
     )
 
-    return {
-        "url": url,
-        "writer": writer,
-        "title": title,
-        "category": category,
-        "reading_time": reading_time,
-        "timestamp": timestamp,
-        "summary": summary,
-    }
+    return dict(
+        url=url,
+        writer=writer,
+        title=title,
+        category=category,
+        reading_time=reading_time,
+        timestamp=timestamp,
+        summary=summary,
+    )
 
 
 # Requisito 5
 def get_tech_news(amount):
-    pass
+    html = fetch(base_url)
+    links = scrape_updates(html)
+    for i in range(0, amount):
+        page = fetch(links[i])
+        create_news(scrape_news(page))
+    return links
