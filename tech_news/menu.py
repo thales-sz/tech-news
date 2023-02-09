@@ -35,14 +35,14 @@ def option05():
 
 # Requisitos 11 e 12
 def analyzer_menu():
-    switch = {
-        "0": option00,
-        "1": option01,
-        "2": option02,
-        "3": option03,
-        "4": top_5_categories,
-        "5": option05,
-    }
+    switch = [
+        option00,
+        option01,
+        option02,
+        option03,
+        top_5_categories,
+        option05,
+    ]
     try:
         option = input(
             """Selecione uma das opções a seguir:\n"""
@@ -53,8 +53,6 @@ def analyzer_menu():
             """ 4 - Listar top 5 categorias;\n"""
             """ 5 - Sair.\n"""
         )
-        if option == "":
-            raise ValueError()
-        print(switch.get(option)())
-    except (IndexError, ValueError, TypeError, AssertionError):
-        print("Opção inválida", sys.stderr)
+        print(switch[int(option)]())
+    except (IndexError, TypeError, ValueError):
+        print("Opção inválida", file=sys.stderr)
