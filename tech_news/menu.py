@@ -1,6 +1,11 @@
 import sys
 from tech_news.scraper import get_tech_news
-from tech_news.analyzer.search_engine import search_by_category, search_by_date, search_by_title
+from tech_news.analyzer.search_engine import (
+    search_by_category,
+    search_by_date,
+    search_by_title,
+)
+from tech_news.analyzer.ratings import top_5_categories
 
 
 def option00():
@@ -17,9 +22,14 @@ def option02():
     value = input("Digite a data: ")
     return search_by_date(int(value))
 
+
 def option03():
     value = input("Digite a data: ")
     return search_by_category(value)
+
+
+def option04():
+    return top_5_categories()
 
 
 # Requisitos 11 e 12
@@ -29,8 +39,8 @@ def analyzer_menu():
         "1": option01,
         "2": option02,
         "3": option03,
-        "4": "Opção 4",
-        "5": "Opção 5",
+        "4": option04,
+        "5": top_5_categories,
     }
     try:
         option = input(
@@ -42,7 +52,6 @@ def analyzer_menu():
             """ 4 - Listar top 5 categorias;\n"""
             """ 5 - Sair.\n"""
         )
-        print(option)
-        switch.get(option)
+        switch.get(option)()
     except (IndexError, ValueError, TypeError):
         print("Opção inválida", sys.stderr)
