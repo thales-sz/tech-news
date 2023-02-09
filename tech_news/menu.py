@@ -10,8 +10,12 @@ def analyzer_menu():
         return get_tech_news(int(value))
 
     def option01():
-        value = input("Digite a quantidade de noticias: ")
-        return get_tech_news(int(value))
+        value = input("Digite a categoria: ")
+        return search_by_category(int(value))
+    
+    def option02():
+        value = input("Digite a categoria: ")
+        return search_by_category(int(value))
 
     switch = {
         "0": option00,
