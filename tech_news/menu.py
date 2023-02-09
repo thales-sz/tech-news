@@ -20,16 +20,17 @@ def option01():
 
 def option02():
     value = input("Digite a data: ")
-    return search_by_date(int(value))
+    return search_by_date(value)
 
 
 def option03():
-    value = input("Digite a data: ")
+    value = input("Digite a categoria: ")
     return search_by_category(value)
 
 
-def option04():
-    return top_5_categories()
+def option05():
+    print("Encerrando script")
+    return
 
 
 # Requisitos 11 e 12
@@ -39,8 +40,8 @@ def analyzer_menu():
         "1": option01,
         "2": option02,
         "3": option03,
-        "4": option04,
-        "5": top_5_categories,
+        "4": top_5_categories,
+        "5": option05,
     }
     try:
         option = input(
@@ -52,6 +53,8 @@ def analyzer_menu():
             """ 4 - Listar top 5 categorias;\n"""
             """ 5 - Sair.\n"""
         )
-        switch.get(option)()
-    except (IndexError, ValueError, TypeError):
+        if option == "":
+            raise ValueError()
+        print(switch.get(option)())
+    except (IndexError, ValueError, TypeError, AssertionError):
         print("Opção inválida", sys.stderr)
